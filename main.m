@@ -12,14 +12,14 @@ params.p=3;
 params.Nh = 10;
 params.h = 5*10^(-4);
 
-[A,B,psi_x,psi_y,psi_x_aug] = train(params);
+[A1,B1,psi_x,psi_y,psi_x_aug] = train(params);
 %I should use a new reference trajectory, but, for the sake of testing I
 %will use the same as the training
-psi_ref = psi_x(:,1:N);
+psi_ref = psi_x(:,1:500);
 R = eye(3);
 states_0 = [zeros(9,1);R(:)];
 z0 = get_lifted_single_vec(states_0,params.p);
-x_actual = control_loop(psi_ref,A,B,z0,params);
+x_actual = control_loop(psi_ref,A1,B1,z0,params);
 
 %t = linspace(0,params.T,params.T/params.dt);
 fig = figure(1);
