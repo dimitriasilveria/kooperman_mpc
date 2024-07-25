@@ -17,6 +17,7 @@ params.h = 5*10^(-4);
 %will use the same as the training
 load data2.mat X_ref
 load data2.mat X0
+%X_ref = references();
 psi_ref = zeros(size(psi_x,1),size(X_ref,2));
 for i=1:length(X_ref)
     psi = get_lifted_single_vec(X_ref(:,i),params.p);
@@ -29,8 +30,8 @@ z0 = get_lifted_single_vec(states_0,params.p);
 
 %t = linspace(0,params.T,params.T/params.dt);
 fig = figure(1);
-plot3(psi_ref(1,1:N),psi_ref(2,1:N),psi_ref(3,1:N));
+plot3(X_ref(1,:),X_ref(2,:),X_ref(3,:));
 hold on
-plot3(x_actual(1,1:N),x_actual(2,1:N),x_actual(3,1:N),'--');
+plot3(x_actual(1,:),x_actual(2,:),x_actual(3,:),'--');
 hold off
 grid on
