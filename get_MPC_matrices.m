@@ -12,21 +12,17 @@ function [Q_hat,R_hat,Aqp,Bqp,A_ineq,b_ineq] = get_MPC_matrices(A,B,Nh)
     
     R_i = diag([1e1;1e0;1e0;1e0]);
 
-    Aqp = [];
+    Aqp = zeros(n*Nh,n);
     Bqp = [];
     for i=1:Nh
-        Aqp = [Aqp; A^i];
-        if i > 1
-            B_c = zeros((i-1)*size(B,1),size(B,2));
-        else
-            B_c = [];
-        end
-        for j=i:Nh
-            B_c =[B_c;A^(i-1)*B]; 
-        end
-        Bqp = [Bqp,B_c];
-    
+        Aqp((i-1)*n+1:i*n,:) = A^i;
         Q_hat = blkdiag(Q_hat, Q_i);
+    end
+    for i=1:Nh
+
+    
+        a = [zeros(i*n,n); eye(n); Aqp(1:end-i*n,:)];
+        Bqp = [Bqp, a(n+1:end,:)*B];
         R_hat = blkdiag(R_hat, R_i);
     
     

@@ -1,7 +1,7 @@
 function [A,B,psi_x,psi_y,psi_x_aug] =train(params)
-    load 'data2.mat' X1
-    load 'data2.mat' X2
-    load 'data2.mat' U1
+    load 'data2.mat' XX1
+    load 'data2.mat' XX2
+    load 'data2.mat' UU1
     T = params.T;
     dt = params.dt;
     mu = params.mu;
@@ -10,9 +10,9 @@ function [A,B,psi_x,psi_y,psi_x_aug] =train(params)
     h = params.h;
     n_trajs = params.n_trajs;
     %[X,Y,U] = random_in_out(n_trajs,T,dt,mu,sigma,h);
-    U = U1;
-    X = X1;
-    Y = X2;
+    U = UU1;
+    X = XX1;
+    Y = XX2;
     [psi_y,psi_x] = get_lifted_xy(X,Y,p);
     K = calc_k(psi_x,psi_y,U);
     
